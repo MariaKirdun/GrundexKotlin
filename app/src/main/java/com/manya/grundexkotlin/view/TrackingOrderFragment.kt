@@ -38,10 +38,14 @@ class TrackingOrderFragment : Fragment(){
             if (trackId != "") {
                 model.checkStatus(trackId)
             } else {
-                orderStatus.text = "Empty input"
+                orderStatus.text = EMPTY_INPUT
             }
         }
 
+    }
+
+    companion object {
+        private const val EMPTY_INPUT = "Empty Input"
     }
 
 }
