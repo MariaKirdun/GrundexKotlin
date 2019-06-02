@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Grundex</string>
+
+
+    <string name="sing_in">Войти</string>
+    <string name="calculate_shipping_cost">Рассчитать стоимость доставки</string>
+    <string name="tracking_order">Отслеживание заявки</string>
+
+    <string name="enter_city">Город или населенный пункт</string>
+    <string name="product_name">Наименование или категория товара</string>
+    <string name="product_quantity">Количество</string>
+    <string name="calculate_button">Рассчитать</string>
+
+    <string name="order_id">ID заявки</string>
+    <string name="track_order">Проверить</string>
+
+    <string name="user_login">Логин</string>
+    <string name="user_password">Пароль</string>ы
+    <string name="forgot">Забыли?</string>
+
+    <string name="user_number_account">№ Кабинета</string>
+    <string name="e_mail">E-mail</string>
+    <string name="discount">Скидка</string>
+</resources>

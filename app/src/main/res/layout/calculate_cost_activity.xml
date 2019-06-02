@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent" android:layout_margin="16dp">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_city"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" android:id="@+id/cityTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cityAutoCompleteTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"/>
+    <AutoCompleteTextView
+            android:id="@+id/cityAutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_city"
+            android:textColor="@android:color/black" android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/cityTextView"
+            app:layout_constraintBottom_toTopOf="@+id/productAutoCompleteTextView"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/product_name"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:id="@+id/ProductTextView"
+            app:layout_constraintTop_toBottomOf="@+id/cityAutoCompleteTextView"
+            app:layout_constraintBottom_toTopOf="@+id/productAutoCompleteTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <AutoCompleteTextView
+            android:id="@+id/productAutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/product_name"
+            android:textColor="@android:color/black" android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/ProductTextView"
+            app:layout_constraintBottom_toTopOf="@+id/quantityTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/product_quantity"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" android:id="@+id/quantityTextView"
+            app:layout_constraintTop_toBottomOf="@+id/productAutoCompleteTextView"
+            app:layout_constraintBottom_toTopOf="@+id/quantityEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+            android:id="@+id/quantityEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/product_quantity"
+            android:textColor="@android:color/black"
+            android:inputType="number" android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/quantityTextView"
+            app:layout_constraintBottom_toTopOf="@+id/orderCost"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:id="@+id/orderCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/quantityEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="100 BYN" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/calculateButton"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+    <Button
+            android:id="@+id/calculateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/calculate_button"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_weight="0"
+            app:layout_constraintStart_toEndOf="@+id/orderCost"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quantityEditText"/>
+</android.support.constraint.ConstraintLayout>
