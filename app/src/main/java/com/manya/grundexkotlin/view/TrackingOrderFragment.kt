@@ -1,12 +1,14 @@
 package com.manya.grundexkotlin.view
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.manya.grundexkotlin.R
 import com.manya.grundexkotlin.viewModel.TrackingOrderViewModel
 import kotlinx.android.synthetic.main.tracking_order_layout.*
@@ -29,11 +31,12 @@ class TrackingOrderFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        model.orderStatusLiveData.observe(this,  Observer { orderStatus.text = it})
+
         trackButton.setOnClickListener {
             val trackId = orderIDEditText.text.toString()
             if (trackId != "") {
                 model.checkStatus(trackId)
-                orderStatus.text = model.orderStatusLiveData.value
             } else {
                 orderStatus.text = "Empty input"
             }

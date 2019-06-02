@@ -1,9 +1,8 @@
 package com.manya.grundexkotlin.viewModel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.manya.grundexkotlin.repository.UserRepository
 
 class TrackingOrderViewModel : ViewModel(){
@@ -14,14 +13,6 @@ class TrackingOrderViewModel : ViewModel(){
 
     fun checkStatus(id : String){
         orderStatusMutable.postValue(UserRepository.getOrderStatus(id))
-    }
-
-
-    class TrackingVMFactory : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
     }
 
 }

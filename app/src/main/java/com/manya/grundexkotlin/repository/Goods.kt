@@ -1,6 +1,6 @@
 package com.manya.grundexkotlin.repository
 
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 
 @Keep
 data class Goods (
