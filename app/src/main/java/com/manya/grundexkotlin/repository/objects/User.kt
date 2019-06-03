@@ -1,4 +1,4 @@
-package com.manya.grundexkotlin.repository
+package com.manya.grundexkotlin.repository.objects
 
 import androidx.annotation.Keep
 
