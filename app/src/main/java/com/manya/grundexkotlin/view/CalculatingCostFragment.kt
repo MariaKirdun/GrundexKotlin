@@ -32,16 +32,18 @@ class CalculatingCostFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        cityAutoCompleteAdapter?.setModel(model)
         model.citiesLiveData.observe(this, Observer {
             cityAutoCompleteAdapter?.setCities(it)
         })
 
         cityAutoCompleteTextView.threshold = 2
         cityAutoCompleteTextView.setAdapter(cityAutoCompleteAdapter)
-        cityAutoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val city = parent.getItemAtPosition(position) as City
-            cityAutoCompleteTextView.setText(city.toString())
-        }
+        cityAutoCompleteTextView.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                    val city = parent.getItemAtPosition(position) as City
+                    cityAutoCompleteTextView.setText(city.toString())
+            }
       //  productAutoCompleteTextView.setThreshold(2)
        // productAutoCompleteTextView.setAdapter(GoodsAutoCompleteAdapter(this))
         //productAutoCompleteTextView.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->

@@ -1,14 +1,12 @@
 package com.manya.grundexkotlin.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.manya.grundexkotlin.repository.network.NetworkingAPI
 import com.manya.grundexkotlin.repository.network.TrackingOrderRequest
 import com.manya.grundexkotlin.repository.objects.City
-import com.manya.grundexkotlin.repository.objects.Order
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.manya.grundexkotlin.repository.network.CityAutoCompleteRequest
 
 object UserRepository {
 
@@ -20,10 +18,9 @@ object UserRepository {
         .create(NetworkingAPI::class.java)
 
     suspend fun checkOrderStatus(id : String) : String{
-
         var status  = ""
         val json = retrofit
-            .getOrderStatus(TrackingOrderRequest(id))
+            .getOrderStatusAsync(TrackingOrderRequest(id))
             .await()
        val order = json.body()
        if (order != null){
@@ -32,9 +29,11 @@ object UserRepository {
         return status
     }
 
-    fun findCities(subString: String) : List<City>?{
-
-        return null
+    suspend fun findCities(subString: String) : List<City>?{
+        val json = retrofit
+            .getCitiesAsync(CityAutoCompleteRequest(subString))
+            .await()
+        return json.body()
     }
 
 }

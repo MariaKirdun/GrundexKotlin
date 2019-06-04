@@ -1,9 +1,9 @@
-package com.manya.grundexkotlin.view
+package com.manya.grundexkotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.manya.grundexkotlin.R
+import com.manya.grundexkotlin.view.*
 import com.manya.grundexkotlin.view.listeners.CalculatingShipingCostListener
 import com.manya.grundexkotlin.view.listeners.SingInAccountButtonClickListener
 import com.manya.grundexkotlin.view.listeners.SingInListener

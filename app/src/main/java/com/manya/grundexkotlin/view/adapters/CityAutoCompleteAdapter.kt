@@ -9,11 +9,13 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import com.manya.grundexkotlin.repository.objects.City
-import com.manya.grundexkotlin.repository.UserRepository
+import com.manya.grundexkotlin.viewModel.CalculatingCostViewModel
 
 class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Filterable{
 
-    private var cities: List<City>? = null
+    private var model : CalculatingCostViewModel? = null
+
+    private var cities: MutableList<City>? = ArrayList()
 
     override fun getCount(): Int {
         return cities!!.size
@@ -27,17 +29,17 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var convertView = convertView
-        if (convertView == null) {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+        var view = convertView
+        if (view == null) {
             val layoutInflater = LayoutInflater.from(context)
-            convertView = layoutInflater.inflate(android.R.layout.simple_dropdown_item_1line, parent, false)
+            view = layoutInflater.inflate(android.R.layout.simple_dropdown_item_1line, parent, false)
         }
 
         val city = getItem(position)
-        (convertView!!.findViewById<View>(android.R.id.text1) as TextView).text = city.toString()
+        (view?.findViewById<TextView>(android.R.id.text1))?.text = city.toString()
 
-        return convertView
+        return view
     }
 
     override fun getFilter(): Filter {
@@ -45,16 +47,16 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val filterResults = FilterResults()
                 if (constraint != null) {
-                    UserRepository.findCities(constraint as String)
+                    model?.findCities(constraint as String)
                     filterResults.values = cities
-                    filterResults.count = cities?.size ?: 0
+                    filterResults.count = cities?.size!!
                 }
                 return filterResults
             }
 
             override fun publishResults(constraint: CharSequence, results: FilterResults?) {
                 if (results != null && results.count > 0) {
-                    cities = results.values as List<City>
+                    cities = results.values as ArrayList<City>?
                     notifyDataSetChanged()
                 } else {
                     notifyDataSetInvalidated()
@@ -64,7 +66,11 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
     }
 
     fun setCities(cities : List<City>) {
-        this.cities = cities
+        this.cities = cities as MutableList<City>
+        notifyDataSetChanged()
     }
 
+    fun setModel(model : CalculatingCostViewModel){
+        this.model = model
+    }
 }
