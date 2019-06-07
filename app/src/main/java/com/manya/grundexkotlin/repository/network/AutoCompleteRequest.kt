@@ -1,5 +1,5 @@
 package com.manya.grundexkotlin.repository.network
 
-data class CityAutoCompleteRequest (
+data class AutoCompleteRequest (
     val term : String
 )

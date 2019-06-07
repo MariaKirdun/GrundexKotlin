@@ -6,7 +6,8 @@ import com.manya.grundexkotlin.repository.objects.City
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.manya.grundexkotlin.repository.network.CityAutoCompleteRequest
+import com.manya.grundexkotlin.repository.network.AutoCompleteRequest
+import com.manya.grundexkotlin.repository.objects.Goods
 
 object UserRepository {
 
@@ -31,7 +32,14 @@ object UserRepository {
 
     suspend fun findCities(subString: String) : List<City>?{
         val json = retrofit
-            .getCitiesAsync(CityAutoCompleteRequest(subString))
+            .getCitiesAsync(AutoCompleteRequest(subString))
+            .await()
+        return json.body()
+    }
+
+    suspend fun findGoods(subString: String) : List<Goods>?{
+        val json = retrofit
+            .getGoodsAsync(AutoCompleteRequest(subString))
             .await()
         return json.body()
     }

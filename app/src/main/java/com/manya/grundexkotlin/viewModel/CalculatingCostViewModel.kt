@@ -19,15 +19,22 @@ class CalculatingCostViewModel : ViewModel(){
     private val citiesMutable = MutableLiveData<List<City>>()
     val citiesLiveData : LiveData<List<City>> get() = citiesMutable
 
-    fun findCities(subString: String){
-        scope.launch {
-            citiesMutable.postValue(UserRepository.findCities(subString))
-        }
-        Log.d("Retrofit", "bla bla")
-    }
-
     private val goodsMutable = MutableLiveData<List<Goods>>()
     val goodsLiveData : LiveData<List<Goods>> get() = goodsMutable
 
+    fun find(subString: String, type : Int){
+        scope.launch {
+            when(type) {
+                CITY ->  citiesMutable.postValue(UserRepository.findCities(subString))
+                GOODS -> goodsMutable.postValue(UserRepository.findGoods(subString))
+            }
+        }
+    }
 
+
+
+    companion object {
+        const val CITY = 1
+        const val GOODS = 2
+    }
 }

@@ -11,18 +11,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.manya.grundexkotlin.R
 import com.manya.grundexkotlin.repository.objects.City
+import com.manya.grundexkotlin.repository.objects.Goods
 import com.manya.grundexkotlin.view.adapters.CustomAutoCompleteAdapter
 import com.manya.grundexkotlin.viewModel.CalculatingCostViewModel
+import kotlinx.android.synthetic.main.calculate_cost_activity.*
 
 class CalculatingCostFragment : Fragment(){
 
     private lateinit var model : CalculatingCostViewModel
     private var cityAutoCompleteAdapter : CustomAutoCompleteAdapter<City>? = null
+    private var goodsAutoCompleteAdapter : CustomAutoCompleteAdapter<Goods>? = null
+
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         model = ViewModelProviders.of(this).get(CalculatingCostViewModel::class.java)
-        cityAutoCompleteAdapter = this.context?.let { CustomAutoCompleteAdapter(it) }
+        cityAutoCompleteAdapter = this.context?.let { CustomAutoCompleteAdapter(it, CalculatingCostViewModel.CITY) }
+        goodsAutoCompleteAdapter = this.context?.let { CustomAutoCompleteAdapter(it, CalculatingCostViewModel.GOODS) }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,15 +49,20 @@ class CalculatingCostFragment : Fragment(){
                 cityAutoCompleteTextView.isEnabled = false
             }
         model.citiesLiveData.observe(this, Observer {
-            cityAutoCompleteAdapter?.setCities(it)
+            cityAutoCompleteAdapter?.setList(it)
             cityAutoCompleteAdapter?.notifyDataSetChanged()
         })
-      //  productAutoCompleteTextView.setThreshold(2)
-       // productAutoCompleteTextView.setAdapter(GoodsAutoCompleteAdapter(this))
-        //productAutoCompleteTextView.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
-          //  val goods = parent.getItemAtPosition(position) as Goods
-            //productAutoCompleteTextView.setText(goods.toString())
-        //})
+
+        val productAutoCompleteTextView = view.findViewById<DelayAutoCompleteTextView>(R.id.productAutoCompleteTextView)
+        productAutoCompleteTextView.setAdapter(goodsAutoCompleteAdapter)
+        productAutoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val goods = parent.getItemAtPosition(position) as Goods
+            productAutoCompleteTextView.setText(goods.toString())
+        }
+        model.goodsLiveData.observe(this, Observer {
+            goodsAutoCompleteAdapter?.setList(it)
+            goodsAutoCompleteAdapter?.notifyDataSetChanged()
+        })
 
     }
 

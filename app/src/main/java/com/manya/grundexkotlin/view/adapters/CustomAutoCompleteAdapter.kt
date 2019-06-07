@@ -10,18 +10,18 @@ import android.widget.Filterable
 import android.widget.TextView
 import com.manya.grundexkotlin.viewModel.CalculatingCostViewModel
 
-class CustomAutoCompleteAdapter<T>(private val context: Context) : BaseAdapter(), Filterable{
+class CustomAutoCompleteAdapter<T>(private val context: Context, private val type : Int) : BaseAdapter(), Filterable{
 
     private var model : CalculatingCostViewModel? = null
 
-    private var cities: List<T>? = ArrayList()
+    private var list: List<T>? = ArrayList()
 
     override fun getCount(): Int {
-        return cities?.size ?: 0
+        return list?.size ?: 0
     }
 
     override fun getItem(position: Int): T? {
-        return cities?.get(position)
+        return list?.get(position)
     }
 
     override fun getItemId(position: Int): Long {
@@ -46,16 +46,16 @@ class CustomAutoCompleteAdapter<T>(private val context: Context) : BaseAdapter()
             override fun performFiltering(constraint: CharSequence?): FilterResults? {
                 val filterResults = FilterResults()
                     if (constraint != null) {
-                        model?.findCities(constraint as String)
+                        model?.find(constraint as String, type)
                     }
-                filterResults.values = cities
+                filterResults.values = list
                 filterResults.count = count
                 return filterResults
             }
 
             override fun publishResults(constraint: CharSequence, results: FilterResults?) {
                 if (results != null && results.count > 0) {
-                    cities = results.values as List<T>?
+                    list = results.values as List<T>?
                 } else {
                     notifyDataSetInvalidated()
                 }
@@ -63,8 +63,8 @@ class CustomAutoCompleteAdapter<T>(private val context: Context) : BaseAdapter()
         }
     }
 
-    fun setCities(cities : List<T>) {
-        this.cities = cities
+    fun setList(list : List<T>) {
+        this.list = list
     }
 
     fun setModel(model : CalculatingCostViewModel){
