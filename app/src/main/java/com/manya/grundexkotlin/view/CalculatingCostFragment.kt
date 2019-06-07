@@ -14,7 +14,6 @@ import com.manya.grundexkotlin.repository.objects.City
 import com.manya.grundexkotlin.repository.objects.Goods
 import com.manya.grundexkotlin.view.adapters.CustomAutoCompleteAdapter
 import com.manya.grundexkotlin.viewModel.CalculatingCostViewModel
-import kotlinx.android.synthetic.main.calculate_cost_activity.*
 
 class CalculatingCostFragment : Fragment(){
 
@@ -44,7 +43,7 @@ class CalculatingCostFragment : Fragment(){
         cityAutoCompleteTextView.setAdapter(cityAutoCompleteAdapter)
         cityAutoCompleteTextView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                val city = parent.getItemAtPosition(position) as City
+                val city = parent.getItemAtPosition(position)
                 cityAutoCompleteTextView.setText(city.toString())
                 cityAutoCompleteTextView.isEnabled = false
             }
@@ -54,9 +53,11 @@ class CalculatingCostFragment : Fragment(){
         })
 
         val productAutoCompleteTextView = view.findViewById<DelayAutoCompleteTextView>(R.id.productAutoCompleteTextView)
+        goodsAutoCompleteAdapter?.setModel(model)
+        productAutoCompleteTextView.threshold = 1
         productAutoCompleteTextView.setAdapter(goodsAutoCompleteAdapter)
         productAutoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val goods = parent.getItemAtPosition(position) as Goods
+            val goods = parent.getItemAtPosition(position)
             productAutoCompleteTextView.setText(goods.toString())
             productAutoCompleteTextView.isEnabled = false
         }
