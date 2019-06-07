@@ -44,8 +44,8 @@ class CalculatingCostFragment : Fragment(){
         cityAutoCompleteTextView.setAdapter(cityAutoCompleteAdapter)
         cityAutoCompleteTextView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                    val city = parent.getItemAtPosition(position) as City
-                    cityAutoCompleteTextView.setText(city.toString())
+                val city = parent.getItemAtPosition(position) as City
+                cityAutoCompleteTextView.setText(city.toString())
                 cityAutoCompleteTextView.isEnabled = false
             }
         model.citiesLiveData.observe(this, Observer {
@@ -58,6 +58,7 @@ class CalculatingCostFragment : Fragment(){
         productAutoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val goods = parent.getItemAtPosition(position) as Goods
             productAutoCompleteTextView.setText(goods.toString())
+            productAutoCompleteTextView.isEnabled = false
         }
         model.goodsLiveData.observe(this, Observer {
             goodsAutoCompleteAdapter?.setList(it)
