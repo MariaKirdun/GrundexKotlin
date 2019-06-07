@@ -15,7 +15,7 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
 
     private var model : CalculatingCostViewModel? = null
 
-    private var cities: MutableList<City>? = ArrayList()
+    private var cities: List<City>? = ArrayList()
 
     override fun getCount(): Int {
         return cities!!.size
@@ -56,7 +56,7 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
 
             override fun publishResults(constraint: CharSequence, results: FilterResults?) {
                 if (results != null && results.count > 0) {
-                    cities = results.values as ArrayList<City>?
+                    cities = results.values as List<City>?
                     notifyDataSetChanged()
                 } else {
                     notifyDataSetInvalidated()
@@ -66,7 +66,7 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
     }
 
     fun setCities(cities : List<City>) {
-        this.cities = cities as MutableList<City>
+        this.cities = cities
         notifyDataSetChanged()
     }
 
