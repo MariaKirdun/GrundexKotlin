@@ -18,11 +18,11 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
     private var cities: List<City>? = ArrayList()
 
     override fun getCount(): Int {
-        return cities!!.size
+        return cities?.size ?: 0
     }
 
-    override fun getItem(position: Int): City {
-        return cities!![position]
+    override fun getItem(position: Int): City? {
+        return cities?.get(position)
     }
 
     override fun getItemId(position: Int): Long {
@@ -44,20 +44,19 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
 
     override fun getFilter(): Filter {
         return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
+            override fun performFiltering(constraint: CharSequence?): FilterResults? {
                 val filterResults = FilterResults()
-                if (constraint != null) {
-                    model?.findCities(constraint as String)
-                    filterResults.values = cities
-                    filterResults.count = cities?.size!!
-                }
+                    if (constraint != null) {
+                        model?.findCities(constraint as String)
+                    }
+                filterResults.values = cities
+                filterResults.count = count
                 return filterResults
             }
 
             override fun publishResults(constraint: CharSequence, results: FilterResults?) {
                 if (results != null && results.count > 0) {
                     cities = results.values as List<City>?
-                    notifyDataSetChanged()
                 } else {
                     notifyDataSetInvalidated()
                 }
@@ -67,7 +66,6 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
 
     fun setCities(cities : List<City>) {
         this.cities = cities
-        notifyDataSetChanged()
     }
 
     fun setModel(model : CalculatingCostViewModel){
