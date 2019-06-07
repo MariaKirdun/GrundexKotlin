@@ -11,18 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.manya.grundexkotlin.R
 import com.manya.grundexkotlin.repository.objects.City
-import com.manya.grundexkotlin.view.adapters.CityAutoCompleteAdapter
+import com.manya.grundexkotlin.view.adapters.CustomAutoCompleteAdapter
 import com.manya.grundexkotlin.viewModel.CalculatingCostViewModel
 
 class CalculatingCostFragment : Fragment(){
 
     private lateinit var model : CalculatingCostViewModel
-    private var cityAutoCompleteAdapter : CityAutoCompleteAdapter? = null
+    private var cityAutoCompleteAdapter : CustomAutoCompleteAdapter<City>? = null
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         model = ViewModelProviders.of(this).get(CalculatingCostViewModel::class.java)
-        cityAutoCompleteAdapter = this.context?.let { CityAutoCompleteAdapter(it) }
+        cityAutoCompleteAdapter = this.context?.let { CustomAutoCompleteAdapter(it) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

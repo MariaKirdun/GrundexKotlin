@@ -8,20 +8,19 @@ import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import com.manya.grundexkotlin.repository.objects.City
 import com.manya.grundexkotlin.viewModel.CalculatingCostViewModel
 
-class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Filterable{
+class CustomAutoCompleteAdapter<T>(private val context: Context) : BaseAdapter(), Filterable{
 
     private var model : CalculatingCostViewModel? = null
 
-    private var cities: List<City>? = ArrayList()
+    private var cities: List<T>? = ArrayList()
 
     override fun getCount(): Int {
         return cities?.size ?: 0
     }
 
-    override fun getItem(position: Int): City? {
+    override fun getItem(position: Int): T? {
         return cities?.get(position)
     }
 
@@ -36,8 +35,8 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
             view = layoutInflater.inflate(android.R.layout.simple_dropdown_item_1line, parent, false)
         }
 
-        val city = getItem(position)
-        (view?.findViewById<TextView>(android.R.id.text1))?.text = city.toString()
+        val t = getItem(position)
+        (view?.findViewById<TextView>(android.R.id.text1))?.text = t.toString()
 
         return view
     }
@@ -56,7 +55,7 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
 
             override fun publishResults(constraint: CharSequence, results: FilterResults?) {
                 if (results != null && results.count > 0) {
-                    cities = results.values as List<City>?
+                    cities = results.values as List<T>?
                 } else {
                     notifyDataSetInvalidated()
                 }
@@ -64,7 +63,7 @@ class CityAutoCompleteAdapter(private val context: Context) : BaseAdapter(), Fil
         }
     }
 
-    fun setCities(cities : List<City>) {
+    fun setCities(cities : List<T>) {
         this.cities = cities
     }
 
