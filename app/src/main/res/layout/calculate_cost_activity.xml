@@ -3,7 +3,8 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="match_parent" android:layout_margin="16dp">
+                                                   android:layout_height="match_parent"
+                                                   android:layout_margin="16dp">
 
     <TextView
             android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_chainStyle="packed"/>
-    <AutoCompleteTextView
+    <com.manya.grundexkotlin.view.DelayAutoCompleteTextView
             android:id="@+id/cityAutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
             app:layout_constraintBottom_toTopOf="@+id/productAutoCompleteTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-    <AutoCompleteTextView
+    <com.manya.grundexkotlin.view.DelayAutoCompleteTextView
             android:id="@+id/productAutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
