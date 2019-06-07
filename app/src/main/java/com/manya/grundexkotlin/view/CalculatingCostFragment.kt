@@ -10,16 +10,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.manya.grundexkotlin.R
+import com.manya.grundexkotlin.repository.network.OrderCalucation
 import com.manya.grundexkotlin.repository.objects.City
 import com.manya.grundexkotlin.repository.objects.Goods
 import com.manya.grundexkotlin.view.adapters.CustomAutoCompleteAdapter
 import com.manya.grundexkotlin.viewModel.CalculatingCostViewModel
+import kotlinx.android.synthetic.main.calculate_cost_activity.*
 
 class CalculatingCostFragment : Fragment(){
 
     private lateinit var model : CalculatingCostViewModel
     private var cityAutoCompleteAdapter : CustomAutoCompleteAdapter<City>? = null
     private var goodsAutoCompleteAdapter : CustomAutoCompleteAdapter<Goods>? = null
+
+    private var city : City? = null
+    private var goods : Goods? = null
 
 
     override fun onAttach(context: Context?) {
@@ -43,7 +48,7 @@ class CalculatingCostFragment : Fragment(){
         cityAutoCompleteTextView.setAdapter(cityAutoCompleteAdapter)
         cityAutoCompleteTextView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                val city = parent.getItemAtPosition(position)
+                city = parent.getItemAtPosition(position) as City
                 cityAutoCompleteTextView.setText(city.toString())
                 cityAutoCompleteTextView.isEnabled = false
             }
@@ -57,7 +62,7 @@ class CalculatingCostFragment : Fragment(){
         productAutoCompleteTextView.threshold = 1
         productAutoCompleteTextView.setAdapter(goodsAutoCompleteAdapter)
         productAutoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val goods = parent.getItemAtPosition(position)
+            goods = parent.getItemAtPosition(position) as Goods
             productAutoCompleteTextView.setText(goods.toString())
             productAutoCompleteTextView.isEnabled = false
         }
@@ -65,6 +70,20 @@ class CalculatingCostFragment : Fragment(){
             goodsAutoCompleteAdapter?.setList(it)
             goodsAutoCompleteAdapter?.notifyDataSetChanged()
         })
+
+
+        model.costLiveData.observe(this, Observer {
+            orderCost.text = it
+        })
+
+        calculateButton.setOnClickListener {
+                val order =
+                    OrderCalucation(
+                        goods?.id.toString(), city?.regionID.toString(), quantityEditText.text.toString(),
+                        goods?.coefficient.toString()
+                    )
+                model.calculate(order)
+        }
 
     }
 

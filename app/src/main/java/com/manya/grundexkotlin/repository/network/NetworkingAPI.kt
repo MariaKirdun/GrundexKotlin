@@ -19,4 +19,7 @@ interface NetworkingAPI {
     @POST("autocompletegoods")
     fun getGoodsAsync (@Body request: AutoCompleteRequest) : Deferred<Response<List<Goods>>>
 
+    @POST("calculate")
+    fun getCostAsync (@Body request: OrderCalucation) : Deferred<Response<String>>
+
 }

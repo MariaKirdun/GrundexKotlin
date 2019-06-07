@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.manya.grundexkotlin.repository.network.AutoCompleteRequest
+import com.manya.grundexkotlin.repository.network.OrderCalucation
 import com.manya.grundexkotlin.repository.objects.Goods
 
 object UserRepository {
@@ -44,4 +45,10 @@ object UserRepository {
         return json.body()
     }
 
+    suspend fun calculateCost(order : OrderCalucation) : String?{
+        val cost = retrofit
+            .getCostAsync(order)
+            .await()
+        return cost.body()
+    }
 }
